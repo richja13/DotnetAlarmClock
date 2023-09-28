@@ -1,0 +1,1 @@
+C:\Users\xmadi\source\AlarmClock\BetterAlarmClock\BetterAlarmClock.csproj;x64

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BetterAlarmClock.MainPage"
+             xmlns:viewmodel="clr-namespace:BetterAlarmClock.ViewModel"
+             xmlns:model="clr-namespace:BetterAlarmClock.Services"
+             x:DataType="viewmodel:AlarmsViewModel"
+             BackgroundColor="{StaticResource Background}"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="Alarms"
+             Shell.BackgroundColor="{StaticResource Primary}"
+             Shell.TitleColor="{StaticResource Light}"
+             Shell.PresentationMode="ModalAnimated"
+             Shell.NavBarHasShadow="True"
+             >
+    
+    
+    <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,auto">
+        <ScrollView Grid.ColumnSpan="3">
+            <VerticalStackLayout  Grid.Row="0" VerticalOptions="Start">
+                <ContentView >
+                    <CollectionView  ItemsSource="{Binding Alarms}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Alarm">
+                                <Frame Style="{StaticResource AlarmView}">
+                                    <Grid VerticalOptions="Center">
+                                        <VerticalStackLayout Margin="5" HorizontalOptions="Start" VerticalOptions="Center" MaximumWidthRequest="250">
+                                            <Label HorizontalTextAlignment="Start" Style="{StaticResource LargeLabel}" Text="{Binding Time}"/>
+                                            <Label HorizontalTextAlignment="Start" Style="{StaticResource MediumLabel}" LineBreakMode="MiddleTruncation" MaxLines="1" Text="{Binding Music}"/>
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout VerticalOptions="Center" Margin="5">
+                                            <Switch  IsToggled="True" Style="{StaticResource SwitchStyle}" AnchorY="0" AnchorX="0.7"  HorizontalOptions="End" VerticalOptions="Center">
+                                                <Switch.Behaviors>
+                                                    <toolkit:EventToCommandBehavior EventName="Toggled" Command="{Binding ToggledCommand}"/>
+                                                </Switch.Behaviors>
+                                            </Switch>
+                                            <Label HorizontalOptions="End" IsVisible="{Binding IsEnabled}" Style="{StaticResource SmallLabel}" VerticalOptions="End" Text="{Binding TimeLeft}"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ContentView>
+                <Button Command="{Binding SetAlarmClockCommand}" Style="{StaticResource ButtonStyle}" Margin="20" Text="+ Add new Alarm"/>
+            </VerticalStackLayout>
+        </ScrollView>
+        <Label x:Name="TestLabel" HorizontalOptions="Center"  Style="{StaticResource MediumLabel}"/>
+        <Frame Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="130" BorderColor="Transparent" BackgroundColor="{StaticResource Accent}">
+            <HorizontalStackLayout x:Name="SoundLabel" VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand">
+                <VerticalStackLayout>
+                    <ImageButton HorizontalOptions="Center" Clicked="ImageButton_Clicked1" Shadow="{StaticResource CommonShadow}" BackgroundColor="Transparent" Source="home_icon.png" />
+                    <Label Grid.Row="1" TextColor="{StaticResource Background}" HorizontalTextAlignment="Center" Margin="20" WidthRequest="50" Text="Home" FontSize="12"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <ImageButton Command="{Binding SpotifyTestCommand}" Shadow="{StaticResource CommonShadow}" HorizontalOptions="Center" BackgroundColor="Transparent" Source="spotify_icon.png" />
+                    <Label Grid.Row="1"  TextColor="{StaticResource Background}" HorizontalTextAlignment="Center" Margin="20" WidthRequest="50" Text="Spotify" FontSize="12"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <ImageButton Clicked="ImageButton_Clicked2" Shadow="{StaticResource CommonShadow}" x:Name="ImgButton" HorizontalOptions="Center" BackgroundColor="Transparent" Source="setting_icon.png" />
+                    <Label Grid.Row="1" TextColor="{StaticResource Background}" HorizontalTextAlignment="Center" Margin="20" WidthRequest="50" Text="Settings" FontSize="12"/>
+                </VerticalStackLayout>
+                <toolkit:MediaElement  x:Name="SoundPlayer" Volume="0.2" Source="embed://BIGUF.mp3" IsVisible="false"/>
+            </HorizontalStackLayout>
+        </Frame>
+    </Grid>
+
+</ContentPage>

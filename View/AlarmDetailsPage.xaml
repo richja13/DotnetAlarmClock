@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BetterAlarmClock.View.AlarmDetailsPage"
+             Title="AlarmDetailsPage"
+             xmlns:viewmodel="clr-namespace:BetterAlarm.ViewModel"
+             x:DataType="viewmodel:AlarmDetailsView"
+             BackgroundColor="{StaticResource Primary}"
+             Shell.BackgroundColor="{StaticResource Primary}"
+             >
+
+    <Grid HorizontalOptions="Center" RowDefinitions="*,Auto,*" ColumnDefinitions="*,*">
+        <VerticalStackLayout HorizontalOptions="Center" Grid.ColumnSpan="2" Margin="40">
+            <HorizontalStackLayout Grid.Row="1" HorizontalOptions="Center">
+                <TimePicker  TextColor="{StaticResource Light}" BackgroundColor="{StaticResource Primary}" Time="{Binding AlarmTime}" x:Name="alarmTime1" Shadow="{StaticResource CommonShadow}" Format="HH:mm" FontSize="55"/>
+            </HorizontalStackLayout>
+            <VerticalStackLayout Grid.Row="1" HorizontalOptions="Fill">
+                <Button Style="{StaticResource ButtonStyle}" Margin="20" WidthRequest="295" Command="{Binding PickAndShowCommand}" Text="{Binding MusicName}"/>
+                <Button Style="{StaticResource ButtonStyle}" Margin="20" WidthRequest="295" Text="Set melody"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+
+        <HorizontalStackLayout Grid.ColumnSpan="2" Grid.Row="2" Margin="30" HorizontalOptions="CenterAndExpand">
+            <Button Text="Cancel" FontSize="15" Style="{StaticResource ButtonStyle}"  WidthRequest="100" HeightRequest="50" Margin="20"/>
+            <Button Command="{Binding GoBackCommand}" Text="Ok" Style="{StaticResource ButtonStyle}" WidthRequest="100" HeightRequest="50" Margin="20"/>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>
